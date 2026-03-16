@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        AWS_REGION = 'us-west-3'
+        AWS_REGION = 'eu-north-1'
         S3_BUCKET = 'task-manager-rm'
         CLOUDFRONT_DISTRIBUTION_ID = 'E2SOKDTZQC348S'
     }

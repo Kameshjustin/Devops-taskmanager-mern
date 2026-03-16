@@ -2,16 +2,16 @@ pipeline {
     agent any
 
     environment {
-        AWS_REGION = 'us-east-1'
-        S3_BUCKET = 'task-manager7'
-        CLOUDFRONT_DISTRIBUTION_ID = 'E17PETT8G2VOVG'
+        AWS_REGION = 'us-west-1'
+        S3_BUCKET = 'task-manager-rm'
+        CLOUDFRONT_DISTRIBUTION_ID = 'E2SOKDTZQC348S'
     }
 
     stages {
 
         stage('checkout') {
             steps {
-                git credentialsId: 'github-cred', url: 'https://github.com/Ramezz07/taskmanager.git'
+                git credentialsId: 'github-credential023', url: 'https://github.com/Kameshjustin/Devops-taskmanager-mern.git'
             }
         }
 
@@ -25,7 +25,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                withCredentials([file(credentialsId: 'tm-env-prod', variable: 'ENV_PROD')]) {
+                withCredentials([file(credentialsId: 'taskmanager-rm', variable: 'ENV_PROD')]) {
                     dir('frontend') {
                         sh '''
                         cp $ENV_PROD .env.production
@@ -38,7 +38,7 @@ pipeline {
 
         stage('Deploy to S3') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-cred']]) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'taskmanager0123']]) {
                     sh """
                     /usr/local/bin/aws s3 sync frontend/build/ s3://${S3_BUCKET} --delete
                     """
@@ -48,7 +48,7 @@ pipeline {
 
         stage('Invalidate CloudFront Cache') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-cred']]) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'taskmanager0123']]) {
                     sh """
                     /usr/local/bin/aws cloudfront create-invalidation \
                     --distribution-id ${CLOUDFRONT_DISTRIBUTION_ID} \
@@ -58,4 +58,16 @@ pipeline {
             }
         }
     }
+    
+    post {
+        success {
+            echo "Deployment Successful! Your app is live........"
+        }
+        failure {
+            echo "Pipeline failed. Check the logs........"
+        }
+    }
+
 }
+
+

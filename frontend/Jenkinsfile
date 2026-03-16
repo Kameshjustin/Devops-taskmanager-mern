@@ -8,10 +8,11 @@ pipeline {
     }
 
     stages {
-
-        stage('checkout') {
+        stage('Checkout Code From Github') {
             steps {
-                git credentialsId: 'frontend-credentials', url: 'https://github.com/Kameshjustin/Devops-taskmanager-mern.git'
+                git branch: 'main',
+                    credentialsId: 'frontend-credentials', 
+                    url: 'https://github.com/Kameshjustin/Devops-taskmanager-mern.git'
             }
         }
 

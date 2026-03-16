@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        AWS_REGION = 'us-west-1'
+        AWS_REGION = 'us-west-3'
         S3_BUCKET = 'task-manager-rm'
         CLOUDFRONT_DISTRIBUTION_ID = 'E2SOKDTZQC348S'
     }
@@ -11,7 +11,7 @@ pipeline {
 
         stage('checkout') {
             steps {
-                git credentialsId: 'github-credential023', url: 'https://github.com/Kameshjustin/Devops-taskmanager-mern.git'
+                git credentialsId: 'frontend-credentials', url: 'https://github.com/Kameshjustin/Devops-taskmanager-mern.git'
             }
         }
 

@@ -26,9 +26,10 @@ pipeline {
 
         stage('Build') {
             steps {
-                withCredentials([file(credentialsId: 'taskmanager-rm', variable: 'ENV_PROD')]) {
+                withCredentials([file(credentialsId: 'env-cred', variable: 'ENV_PROD')]) {
                     dir('frontend') {
                         sh '''
+                        chmod -R 777 .
                         cp $ENV_PROD .env.production
                         npm run build
                         '''
@@ -70,5 +71,3 @@ pipeline {
     }
 
 }
-
-

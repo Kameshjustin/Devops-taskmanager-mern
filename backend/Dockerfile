@@ -1,4 +1,3 @@
-# Stage 1: Dependencies
 FROM node:20-alpine AS deps
 WORKDIR /apps
 COPY package*.json ./

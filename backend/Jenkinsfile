@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git credentialsId: 'github-cred', url: 'https://github.com/Ramezz07/taskmanager.git'
+                git credentialsId: 'github-cred', url: 'https://github.com/Kameshjustin/Devops-taskmanager-mern.git'
             }
         }
 
